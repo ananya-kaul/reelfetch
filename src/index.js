@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { engine, run } from './runtime.js';
 
-export const VERSION = '0.1.0';
+export const VERSION = '0.1.1';
 export const AUDIO_FORMATS = ['mp3', 'm4a', 'opus', 'flac', 'wav', 'aac', 'best'];
 export const COMMANDS = ['video', 'audio', 'info', 'formats'];
 

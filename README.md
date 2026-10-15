@@ -2,21 +2,19 @@
 <h1 align="center">Reelfetch</h1>
 <p align="center"><strong>Video. Audio. One command.</strong><br>A friendly command line companion for yt-dlp, by Ananya Kaul.</p>
 
-Download video and audio from YouTube and other sites supported by [yt-dlp](https://github.com/yt-dlp/yt-dlp). Choose a quality, extract audio, save subtitles and thumbnails, or work through a list of URLs.
+Reelfetch is a convenient command line interface to [yt-dlp](https://github.com/yt-dlp/yt-dlp). It adds simple commands for choosing video quality, extracting audio, saving subtitles and thumbnails, and processing lists of URLs. Site extraction and download support come from yt-dlp.
 
 ## Install
 
-Requires **Node.js 22+**.
+Install these requirements first:
 
-```sh
-npm install -g reelfetch
-reelfetch setup
-reelfetch doctor
-```
+| Requirement | Used for |
+| --- | --- |
+| **Node.js 22+** and npm | Running and installing Reelfetch |
+| **Python 3.10+** with `venv` | Installing the managed yt-dlp backend with `reelfetch setup` |
+| **ffmpeg** and **ffprobe**, available on PATH | Audio conversion, merging video/audio streams, and embedding metadata |
 
-`setup` requires **Python 3.10+** with `venv` and installs `yt-dlp[default]` into a private environment in your user data directory. Run it again to update yt-dlp when a site changes. There are no install hooks and no npm runtime dependencies. You can also use an existing `yt-dlp` executable on PATH without running setup.
-
-Install **ffmpeg** and **ffprobe** for audio conversion, video/audio merging, and embedding metadata:
+Install FFmpeg with the command for your system:
 
 | System | Command |
 | --- | --- |
@@ -24,11 +22,41 @@ Install **ffmpeg** and **ffprobe** for audio conversion, video/audio merging, an
 | Windows | `winget install Gyan.FFmpeg` |
 | Ubuntu / Debian | `sudo apt install ffmpeg python3-venv` |
 
-See [FFmpeg's download page](https://ffmpeg.org/download.html) for other systems. Open a new terminal after installing tools on Windows.
+See [Node.js downloads](https://nodejs.org/en/download), [Python downloads](https://www.python.org/downloads/), and [FFmpeg downloads](https://ffmpeg.org/download.html) for installation help. Open a new terminal after installing tools on Windows.
+
+Then install and check Reelfetch:
+
+```sh
+npm install -g reelfetch
+reelfetch setup
+reelfetch doctor
+```
+
+`setup` installs `yt-dlp[default]` into a private environment in your user data directory. Run it again to update yt-dlp when a site changes. There are no install hooks and no npm runtime dependencies. If you already have a working `yt-dlp` executable on PATH, you can skip setup and its separate Python requirement. `doctor` should report yt-dlp, ffmpeg, and ffprobe as available before you try the full workflow.
 
 To install the latest source directly from GitHub, use `npm install -g github:ananya-kaul/reelfetch`.
 
-## Quick start
+## Example workflow
+
+After setup, use this sequence with a video you own or have permission to download. Replace `VIDEO_URL` with its full URL, keeping the quotes:
+
+```sh
+# Inspect available streams without downloading media
+reelfetch formats "VIDEO_URL"
+
+# Save a video at up to 1080p in ./videos
+reelfetch "VIDEO_URL" --quality 1080 --output ./videos
+
+# Extract an MP3 into ./music
+reelfetch audio "VIDEO_URL" --format mp3 --output ./music
+
+# Keep a history so later runs skip completed downloads
+reelfetch "VIDEO_URL" --output ./videos --archive downloaded.txt
+```
+
+Progress appears in the terminal. Media files use the source title and ID; the video container depends on the available streams. To process several sources, put one URL per line in `urls.txt`, then run `reelfetch video --batch urls.txt --output ./videos --archive downloaded.txt`.
+
+## More examples
 
 ```sh
 # Best available video; quote URLs to protect query strings from your shell
