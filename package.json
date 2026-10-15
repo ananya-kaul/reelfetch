@@ -1,0 +1,47 @@
+{
+  "name": "reelfetch",
+  "version": "0.1.0",
+  "description": "A friendly CLI for downloading video, audio, playlists, subtitles, and thumbnails with yt-dlp.",
+  "type": "module",
+  "bin": {
+    "reelfetch": "bin/reelfetch.js"
+  },
+  "exports": "./src/index.js",
+  "files": [
+    "bin/",
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check bin/reelfetch.js && node --check src/index.js && node --check src/runtime.js",
+    "prepublishOnly": "npm run check && npm test",
+    "test:integration": "node scripts/smoke.mjs"
+  },
+  "author": "Ananya Kaul <kaul23ananya@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ananya-kaul/reelfetch.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ananya-kaul/reelfetch/issues"
+  },
+  "homepage": "https://github.com/ananya-kaul/reelfetch#readme",
+  "keywords": [
+    "cli",
+    "video",
+    "audio",
+    "downloader",
+    "youtube",
+    "yt-dlp",
+    "playlist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
