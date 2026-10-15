@@ -6,10 +6,10 @@ Download video and audio from YouTube and other sites supported by [yt-dlp](http
 
 ## Install
 
-Requires **Node.js 22+**. Until the npm release is published, install directly from this repository:
+Requires **Node.js 22+**.
 
 ```sh
-npm install -g github:ananya-kaul/reelfetch
+npm install -g reelfetch
 reelfetch setup
 reelfetch doctor
 ```
@@ -26,7 +26,7 @@ Install **ffmpeg** and **ffprobe** for audio conversion, video/audio merging, an
 
 See [FFmpeg's download page](https://ffmpeg.org/download.html) for other systems. Open a new terminal after installing tools on Windows.
 
-After the npm release is available, the registry installation command will be `npm install -g reelfetch`.
+To install the latest source directly from GitHub, use `npm install -g github:ananya-kaul/reelfetch`.
 
 ## Quick start
 
