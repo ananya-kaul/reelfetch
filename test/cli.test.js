@@ -36,6 +36,18 @@ test('playlist requires opt-in, with optional bounded entry count', () => {
   assert.ok(args.includes('--yes-playlist'));
   assert.equal(args[args.indexOf('--playlist-end') + 1], '3');
 });
+test('explicit invalid playlist limits are rejected instead of ignored', () => {
+  for (const limit of [0, '0', false, '', NaN, -1, 1.5]) {
+    assert.throws(() => buildArgs('video', [url], { playlist: true, limit }), /--limit must be a positive integer/);
+  }
+  for (const limit of [undefined, null]) {
+    assert.ok(!buildArgs('video', [url], { limit }).includes('--playlist-end'));
+  }
+  for (const limit of [1, '3']) {
+    const args = buildArgs('video', [url], { limit });
+    assert.equal(args[args.indexOf('--playlist-end') + 1], String(limit));
+  }
+});
 test('invalid options fail before launching a process', () => {
   for (const options of [{ quality: '720;exit' }, { format: 'exe' }, { limit: '-1' }, { rate: 'fast' }, { subs: '../en' }]) {
     assert.throws(() => buildArgs('video', [url], options));
