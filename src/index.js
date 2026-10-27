@@ -22,7 +22,7 @@ export function buildArgs(command, urls, options = {}) {
   if (!/^(best|[1-9]\d{1,3})$/.test(quality)) throw new Error('--quality must be best or a height such as 720, 1080, or 2160.');
   const format = options.format ?? 'mp3';
   if (!AUDIO_FORMATS.includes(format)) throw new Error(`--format must be one of: ${AUDIO_FORMATS.join(', ')}.`);
-  if (options.limit && !/^[1-9]\d*$/.test(String(options.limit))) throw new Error('--limit must be a positive integer.');
+  if (options.limit != null && !/^[1-9]\d*$/.test(String(options.limit))) throw new Error('--limit must be a positive integer.');
   if (options.rate && !/^\d+(\.\d+)?[KMG]?$/i.test(options.rate)) throw new Error('--rate must be a speed such as 500K or 2M.');
   if (options.subs && !/^[\w.*,\-]+$/.test(options.subs)) throw new Error('--subs must be language codes such as en or en,fr.');
   const args = ['--ignore-config', '--no-update', '--js-runtimes', 'node', '--windows-filenames', options.playlist ? '--yes-playlist' : '--no-playlist'];
